@@ -65,7 +65,15 @@ void HolaApp::setup(void)
   
   setupScene();
 }
+void HolaApp::preRenderTargetUpdate(const Ogre::RenderTargetEvent& evt){
 
+	scnMgr->getEntity("entFondo")->setVisible(false);
+	scnMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+}
+void HolaApp::postRenderTargetUpdate(const Ogre::RenderTargetEvent& evt){
+	scnMgr->getEntity("entFondo")->setVisible(true);
+	scnMgr->setAmbientLight(ColourValue(0, 0, 0));
+}
 void HolaApp::setupScene(void)
 {
   // without light we would just get a black screen    
@@ -110,6 +118,34 @@ void HolaApp::setupScene(void)
 
   sinbad* ogro =  new sinbad(node);
   addInputListener(ogro);
- 
+
+  MeshPtr plane = MeshManager::getSingleton().createPlane("mFondo",
+	  ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+	  Plane(Vector3::UNIT_Z, 0),
+	  (Real)mWindow->getViewport(0)->getActualWidth(),
+	  (Real)cam->getViewport()->getActualHeight(),
+	  10, 10, true, 1, 1.0, 1.0, Vector3::UNIT_Y);  Entity* entPlano = scnMgr->createEntity("entFondo", "mFondo");  entPlano->getSubEntity(0)->getMaterial()->
+	  getTechnique(0)->getPass(0) ->
+	  createTextureUnitState("RustedMetal.jpg");  Ogre::SceneNode* nodee = scnMgr->getRootSceneNode()->createChildSceneNode("nodoPlano");
+  nodee->attachObject(entPlano);
+  Camera* camRef = scnMgr->createCamera("RefCam");  camRef->setNearClipDistance(cam->getNearClipDistance());
+  camRef->setFarClipDistance(cam->getFarClipDistance());
+  camRef->setAutoAspectRatio(true);  camRef->enableReflection(Plane(Vector3::UNIT_Z, 0));
+  camRef->enableCustomNearClipPlane(Plane(Vector3::UNIT_Z, 0));  camNode->attachObject(camRef);  TexturePtr rttTex = TextureManager::getSingleton().createManual(
+	  "texRtt",
+	  ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+	  TEX_TYPE_2D,
+	  (Real)mWindow->getViewport(0)->getActualWidth(),
+	  (Real)cam->getViewport()->getActualHeight(),
+	  0, PF_R8G8B8, TU_RENDERTARGET);  RenderTexture* renderTexture = rttTex->getBuffer()->getRenderTarget();
+  Viewport * v = renderTexture->addViewport(camRef);
+  v->setClearEveryFrame(true);
+  v->setBackgroundColour(ColourValue::Black);  TextureUnitState* t = entPlano->getSubEntity(0)->getMaterial()->
+	  getTechnique(0)->getPass(0)->
+	  createTextureUnitState("texRtt");
+  t->setColourOperation(LBO_ADD); // backgroundColour -> black
+  // LBO_MODULATE / LBO_REPLACE / LBO_ALPHA_BLEND;
+  t->setTextureAddressingMode(TextureUnitState::TAM_CLAMP);
+  t->setProjectiveTexturing(true, camRef);  renderTexture->addListener(this);
 }
 
