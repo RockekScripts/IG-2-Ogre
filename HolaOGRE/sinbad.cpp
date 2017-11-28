@@ -23,3 +23,4 @@ bool sinbad::keyPressed(const OgreBites::KeyboardEvent& evt)
 
 	return true;
 }
+

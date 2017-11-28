@@ -20,9 +20,19 @@ bool HolaApp::keyPressed(const OgreBites::KeyboardEvent& evt)
 
 bool HolaApp::mousePressed(const OgreBites::MouseButtonEvent &  evt)
 {
- // if (trayMgr->mousePressed(evt)) return true;
-  return true;
-}
+		rayScnQuery->setRay(cam->getCameraToViewportRay(
+			evt.x / (Real)mWindow->getViewport(0)->getActualWidth(),
+			evt.y / (Real)mWindow->getViewport(0)->getActualHeight()));
+		// coordenadas normalizadas en [0,1]
+		RaySceneQueryResult& qryResult = rayScnQuery->execute();
+		RaySceneQueryResult::iterator it = qryResult.begin();
+		while (it != qryResult.end()) {
+			if (it->movable->getName() == "Ogre/MO1")
+				it->movable->getParentSceneNode()->translate(10, 10, 10);
+			++it;
+		} 
+		return true;
+	}
 
 bool HolaApp::mouseMoved(const OgreBites::MouseMotionEvent& evt)
 {
@@ -93,7 +103,7 @@ void HolaApp::setupScene(void)
   addInputListener(cameraMgr);
 
   // create the camera
-  Camera* cam = scnMgr->createCamera("Cam");
+   cam = scnMgr->createCamera("Cam");
   cam->setNearClipDistance(1); 
   cam->setFarClipDistance(10000);
   cam->setAutoAspectRatio(true);
@@ -147,5 +157,8 @@ void HolaApp::setupScene(void)
   // LBO_MODULATE / LBO_REPLACE / LBO_ALPHA_BLEND;
   t->setTextureAddressingMode(TextureUnitState::TAM_CLAMP);
   t->setProjectiveTexturing(true, camRef);  renderTexture->addListener(this);
+
+  rayScnQuery = scnMgr->createRayQuery(Ray());
+  rayScnQuery->setSortByDistance(true);
 }
 
