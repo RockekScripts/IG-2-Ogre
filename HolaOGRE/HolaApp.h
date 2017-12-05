@@ -33,6 +33,7 @@ protected:
   Ogre::SceneNode* camNode = nullptr;
   Ogre::RaySceneQuery * rayScnQuery = nullptr;
   Ogre::Camera* cam;
+  std::vector <ObjectMan*> vecObjMan;
 };
 
 

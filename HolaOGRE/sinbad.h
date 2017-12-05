@@ -2,7 +2,8 @@
 #include <OgreInput.h>
 #include <Ogre.h>
 #include <vector>
-class sinbad : public OgreBites::InputListener
+#include "ObjectMan.h"
+class sinbad : public OgreBites::InputListener,public ObjectMan
 {
 public:  
 	sinbad(Ogre::SceneNode* scnMgr_);
@@ -13,6 +14,6 @@ public:
 	
 private:
 	Ogre::SceneNode* scnMgr = nullptr;
-	
+	Ogre::Entity* ent;
 };
 

@@ -14,12 +14,16 @@
     <ClCompile Include="HolaApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyApplicationContext.cpp" />
+    <ClCompile Include="ObjectMan.cpp" />
+    <ClCompile Include="PanelMan.cpp" />
     <ClCompile Include="RenderTargetListener.cpp" />
     <ClCompile Include="sinbad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HolaApp.h" />
     <ClInclude Include="MyApplicationContext.h" />
+    <ClInclude Include="ObjectMan.h" />
+    <ClInclude Include="PanelMan.h" />
     <ClInclude Include="RenderTargetListener.h" />
     <ClInclude Include="sinbad.h" />
   </ItemGroup>

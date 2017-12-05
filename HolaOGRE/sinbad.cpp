@@ -1,9 +1,11 @@
 #include "sinbad.h"
 
 
-sinbad::sinbad(Ogre::SceneNode* scnMgr_)
+sinbad::sinbad(Ogre::SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 {
-	scnMgr = scnMgr_;
+	ent = node->getCreator()->createEntity("nSinbad","Sinbad.mesh");
+	 ent->setQueryFlags(MY_QUERY_MASK);
+	setObjMan(ent);
 }
 
 
