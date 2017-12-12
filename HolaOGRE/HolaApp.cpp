@@ -6,6 +6,7 @@ using namespace Ogre;
 void HolaApp::frameRendered(const FrameEvent &  evt)
 {
  // trayMgr->frameRendered(evt);
+
 	for (int i = 0; i < vecObjMan.size(); ++i){
 		vecObjMan[i]->frameRendered(evt);
 	}
@@ -25,18 +26,18 @@ bool HolaApp::keyPressed(const OgreBites::KeyboardEvent& evt)
 bool HolaApp::mousePressed(const OgreBites::MouseButtonEvent &  evt)
 {
 	rayScnQuery->setRay(cam->getCameraToViewportRay(
-		evt.x / (Real)mWindow->getViewport(0)->getActualWidth(),
-		evt.y / (Real)mWindow->getViewport(0)->getActualHeight()));
+		evt.x / (Real)scnMgr->getCamera("Cam")->getViewport()->getActualWidth(),
+		evt.y / (Real)scnMgr->getCamera("Cam")->getViewport()->getActualHeight()));
 	// coordenadas normalizadas en [0,1]
 	RaySceneQueryResult& qryResult = rayScnQuery->execute();
 	RaySceneQueryResult::iterator it = qryResult.begin();
 	if (it != qryResult.end()) {
-		//if (it->movable->getName() == "Ogre/MO1")
 			it->movable->getParentSceneNode()->translate(10, 10, 10);
 	UserControl* pCtrl = any_cast<UserControl*>(it->movable->getUserObjectBindings().getUserAny()); pCtrl->getControl()->mousePicking(evt);
 		++it;
 	}
-
+		
+	
 	
 	return true;
 	}
@@ -99,7 +100,7 @@ void HolaApp::setupScene(void)
 {
   // without light we would just get a black screen    
   Light* light = scnMgr->createLight("Light");
-  light->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Z); // !!! opngl <-> dirección a la fuente de luz
+  light->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y); // !!! opngl <-> dirección a la fuente de luz
   lightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
   lightNode->setPosition(0, 0, 100);
   lightNode->attachObject(light);
@@ -109,9 +110,6 @@ void HolaApp::setupScene(void)
   camNode->setPosition(0, 0, 100);
   camNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_WORLD);
 
-  cameraMgr = new OgreBites::CameraMan(camNode);
-  cameraMgr->setStyle(OgreBites::CS_ORBIT);
-  addInputListener(cameraMgr);
 
   // create the camera
    cam = scnMgr->createCamera("Cam");
@@ -120,6 +118,10 @@ void HolaApp::setupScene(void)
   cam->setAutoAspectRatio(true);
   //cam->setPolygonMode(Ogre::PM_WIREFRAME);  // en material
   camNode->attachObject(cam);
+
+  cameraMgr = new OgreBites::CameraMan(camNode);
+  cameraMgr->setStyle(OgreBites::CS_ORBIT);
+  addInputListener(cameraMgr);
 
   // and tell it to render into the main window
   Viewport* vp = getRenderWindow()->addViewport(cam);
@@ -188,7 +190,8 @@ void HolaApp::setupScene(void)
 
   rayScnQuery = scnMgr->createRayQuery(Ray());
   rayScnQuery->setSortByDistance(true); */
-
+  rayScnQuery = scnMgr->createRayQuery(Ray());
+  rayScnQuery->setSortByDistance(true);
   Ogre::SceneNode*  node = scnMgr->getRootSceneNode()->createChildSceneNode("nSinbad");
   sinbad * aux = new sinbad (node);
   vecObjMan.push_back(aux);

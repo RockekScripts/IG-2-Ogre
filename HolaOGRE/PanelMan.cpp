@@ -21,7 +21,7 @@ PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 
 	Camera* camRef = node->getCreator()->createCamera("RefCam");
 	camRef->setNearClipDistance(node->getCreator()->getCamera("Cam")->getNearClipDistance());
-	camRef->setFarClipDistance(node->getCreator()->getCamera("Cam")->getFarClipDistance());
+	camRef->setFarClipDistance(node->getCreator()->getCamera("Cam") ->getFarClipDistance());
 	camRef->setAutoAspectRatio(true);
 
 
@@ -51,8 +51,7 @@ PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 	t->setProjectiveTexturing(true, camRef);
 	renderTexture->addListener(this);
 
-	rayScnQuery = node->getCreator()->createRayQuery(Ray());
-	rayScnQuery->setSortByDistance(true); 
+	
 }
 
 

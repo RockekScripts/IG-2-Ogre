@@ -10,10 +10,14 @@ public:
 	~sinbad();
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
 	//virtual bool mousePressed(const OgreBites::MouseButtonEvent &  evt);
-
+	virtual void frameRendered(const Ogre::FrameEvent & evt);
 	
 private:
 	Ogre::SceneNode* scnMgr = nullptr;
 	Ogre::Entity* ent;
+	Ogre::AnimationState* top;
+	Ogre::AnimationState* base;
+	Ogre::AnimationState* handle;
+	Ogre::MovableObject* espada;
 };
 

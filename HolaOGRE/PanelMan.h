@@ -8,6 +8,6 @@ public:
 	PanelMan(Ogre::SceneNode * scnNode);
 	~PanelMan();
 	Ogre::Camera* cam;
-	Ogre::RaySceneQuery * rayScnQuery = nullptr;
+
 };
 
