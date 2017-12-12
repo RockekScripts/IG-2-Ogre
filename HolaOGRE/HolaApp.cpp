@@ -122,8 +122,8 @@ void HolaApp::setupScene(void)
   camNode->attachObject(cam);
 
   // and tell it to render into the main window
-  //Viewport* vp = getRenderWindow()->addViewport(cam);
-  //vp->setBackgroundColour(Ogre::ColourValue(1, 1, 1));
+  Viewport* vp = getRenderWindow()->addViewport(cam);
+  vp->setBackgroundColour(Ogre::ColourValue(1, 1, 1));
 
   // finally something to render
  /* Ogre::Entity* ent = scnMgr->createEntity("Sinbad.mesh");
@@ -193,8 +193,8 @@ void HolaApp::setupScene(void)
   sinbad * aux = new sinbad (node);
   vecObjMan.push_back(aux);
   addInputListener(aux);	
-  node = scnMgr->getRootSceneNode()->createChildSceneNode("Panel");
-  PanelMan * panel = new PanelMan(node);
+  Ogre::SceneNode* nodee = scnMgr->getRootSceneNode()->createChildSceneNode("Panel");
+  PanelMan * panel = new PanelMan(nodee);
   vecObjMan.push_back(panel);
 
 }

@@ -17,5 +17,5 @@ void ObjectMan:: setObjMan (MovableObject* mObj) {
    // comprobar que es primer objeto que se adjunta al nodo
 
 		node->attachObject(mObj);
-		node->getAttachedObject(0)->getUserObjectBindings().setUserAny(Any(control));
+		node->getAttachedObject(0)->getUserObjectBindings().setUserAny(Ogre::Any(control));
 }

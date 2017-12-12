@@ -5,7 +5,7 @@
 class PanelMan :public Ogre::RenderTargetListener, public ObjectMan
 {
 public:
-	PanelMan(Ogre::SceneNode * scnMgr);
+	PanelMan(Ogre::SceneNode * scnNode);
 	~PanelMan();
 	Ogre::Camera* cam;
 	Ogre::RaySceneQuery * rayScnQuery = nullptr;
