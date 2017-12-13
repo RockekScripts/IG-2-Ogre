@@ -4,13 +4,13 @@ using namespace Ogre;
 
 PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 {
-	
+	//node->getCreator()->getSceneNode("Panel")->rotate(Vector3(1, 0, 0), Radian (3.14));
 	MeshPtr plane = MeshManager::getSingleton().createPlane("mFondo",
 		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		Plane(Vector3::UNIT_Z, 0),
+		Plane(Vector3::UNIT_Y, -30),
 		(Real)node->getCreator()->getCamera("Cam")->getViewport()->getActualWidth(),
 		(Real)node->getCreator()->getCamera("Cam")->getViewport()->getActualHeight(),
-		10, 10, true, 1, 1.0, 1.0, Vector3::UNIT_Y);
+		10, 10, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
 	Entity* entPlano = node->getCreator()->createEntity("entFondo", "mFondo");
 
 	entPlano->getSubEntity(0)->getMaterial()->
@@ -25,8 +25,8 @@ PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 	camRef->setAutoAspectRatio(true);
 
 
-	camRef->enableReflection(Plane(Vector3::UNIT_Z, 0));
-	camRef->enableCustomNearClipPlane(Plane(Vector3::UNIT_Z, 0));
+	camRef->enableReflection(Plane(Vector3::UNIT_Y, 0));
+	camRef->enableCustomNearClipPlane(Plane(Vector3::UNIT_Y, 0));
 
 	node->getCreator()->getSceneNode("CamNode")->attachObject(camRef);
 	TexturePtr rttTex = TextureManager::getSingleton().createManual(

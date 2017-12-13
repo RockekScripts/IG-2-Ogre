@@ -19,5 +19,9 @@ private:
 	Ogre::AnimationState* base;
 	Ogre::AnimationState* handle;
 	Ogre::MovableObject* espada;
+	Ogre::NodeAnimationTrack * track;
+	Ogre::TransformKeyFrame * kf;
+	Ogre::AnimationState * animationState;
+	Ogre::Vector3 keyframePos;
 };
 

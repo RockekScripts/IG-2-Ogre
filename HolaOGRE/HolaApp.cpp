@@ -25,7 +25,7 @@ bool HolaApp::keyPressed(const OgreBites::KeyboardEvent& evt)
 
 bool HolaApp::mousePressed(const OgreBites::MouseButtonEvent &  evt)
 {
-	rayScnQuery->setRay(cam->getCameraToViewportRay(
+	/*rayScnQuery->setRay(cam->getCameraToViewportRay(
 		evt.x / (Real)scnMgr->getCamera("Cam")->getViewport()->getActualWidth(),
 		evt.y / (Real)scnMgr->getCamera("Cam")->getViewport()->getActualHeight()));
 	// coordenadas normalizadas en [0,1]
@@ -37,7 +37,7 @@ bool HolaApp::mousePressed(const OgreBites::MouseButtonEvent &  evt)
 		++it;
 	}
 		
-	
+	*/
 	
 	return true;
 	}
