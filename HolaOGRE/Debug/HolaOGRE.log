@@ -1,4 +1,4 @@
-﻿Build started 13/12/2017 12:53:11.
+﻿Build started 18/12/2017 17:38:59.
      1>Project "C:\hlocal\IG-2-Ogre\HolaOGRE\HolaOGRE.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\software\programacion\MSVStudio2013\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt sinbad.cpp
@@ -410,7 +410,7 @@
      1>c:\hlocal\ig-2-ogre\ogresdk\include\ogre\bites\ogresgtechniqueresolverlistener.h(47): warning C4275: non dll-interface class 'Ogre::MaterialManager::Listener' used as base for dll-interface class 'OgreBites::SGTechniqueResolverListener'
                  c:\hlocal\ig-2-ogre\ogresdk\include\ogre\ogrematerialmanager.h(70) : see declaration of 'Ogre::MaterialManager::Listener'
                  c:\hlocal\ig-2-ogre\ogresdk\include\ogre\bites\ogresgtechniqueresolverlistener.h(47) : see declaration of 'OgreBites::SGTechniqueResolverListener'
-     1>c:\hlocal\ig-2-ogre\holaogre\sinbad.cpp(36): warning C4244: 'initializing' : conversion from 'double' to 'Ogre::Real', possible loss of data
+     1>c:\hlocal\ig-2-ogre\holaogre\sinbad.cpp(41): warning C4244: 'initializing' : conversion from 'double' to 'Ogre::Real', possible loss of data
        Link:
          C:\software\programacion\MSVStudio2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\hlocal\IG-2-Ogre\bin\HolaOGREDebug.exe" /INCREMENTAL /NOLOGO OgreMain_d.lib OgreBites_d.lib OgreRTShaderSystem_d.lib OgreOverlay_d.lib SDL2.lib SDL2main.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\hlocal\IG-2-Ogre\bin\HolaOGREDebug.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\hlocal\IG-2-Ogre\bin\HolaOGREDebug.lib" /MACHINE:X86 Debug\HolaApp.obj
          Debug\main.obj
@@ -424,4 +424,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.51
+Time Elapsed 00:00:04.77

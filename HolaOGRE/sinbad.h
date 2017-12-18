@@ -18,10 +18,12 @@ private:
 	Ogre::AnimationState* top;
 	Ogre::AnimationState* base;
 	Ogre::AnimationState* handle;
+	Ogre::AnimationState* dance;
 	Ogre::MovableObject* espada;
 	Ogre::NodeAnimationTrack * track;
 	Ogre::TransformKeyFrame * kf;
 	Ogre::AnimationState * animationState;
 	Ogre::Vector3 keyframePos;
+	
 };
 

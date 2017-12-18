@@ -42,11 +42,8 @@ void MyApplicationContext::initApp()
 
 void MyApplicationContext::closeApp()
 {
-    mRoot->saveConfig();  
-    shutdown();
-   
-    delete mRoot;
-    mRoot = nullptr;
+	mRoot->saveConfig();  
+	shutdown();
 }
 
 void MyApplicationContext::createRoot()

@@ -8,10 +8,8 @@ ObjectMan::ObjectMan
 		UserControl
 		(this);
 }
-ObjectMan::~ObjectMan
-() {
-	UserControl	* pCtrl = any_cast<UserControl*> (node->getAttachedObject(0) ->getUserObjectBindings().getUserAny());
-	delete pCtrl;
+ObjectMan::~ObjectMan() {
+	
 }
 void ObjectMan:: setObjMan (MovableObject* mObj) {
    // comprobar que es primer objeto que se adjunta al nodo
