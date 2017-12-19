@@ -20,10 +20,10 @@ sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 	top = ent->getAnimationState("RunTop");
 	top->setLoop(true);
 	top->setEnabled(true);
-	dance = ent->getAnimationState("Dance");
+/*	dance = ent->getAnimationState("Dance");
 	dance->setLoop(true);
 	dance->setEnabled(true);
-	
+	*/
 	espada = node->getCreator()->createEntity("espada","Sword.mesh");
 
 	ent->attachObjectToBone("Handle.L", espada);
@@ -39,7 +39,7 @@ sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 
 
 	Real longitudPaso = duracion / 4.0;
-	Real tamDesplazamiento = 40.0;
+	Real tamDesplazamiento = 100.0;
 	keyframePos = Vector3(0, 0, 0);
 	 // 5 keyFrames: origen(0), arriba, origen, abajo, origen(4)
 	kf = track->createNodeKeyFrame(longitudPaso * 0); // Keyframe 0: origen.
@@ -82,7 +82,7 @@ sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 	keyframePos = Vector3(0, 0, -tamDesplazamiento);
 	kf->setTranslate(keyframePos); // Abajo
 	kf->setScale(Vector3(4.0, 4.0, 4.0));
-	kf->setRotation(Quaternion(Radian(Degree(270)), Vector3(0, 1, 0)));
+	kf->setRotation(Quaternion(Radian(Degree(360)), Vector3(0, 1, 0)));
 
 	kf = track->createNodeKeyFrame(longitudPaso * 4-1); // Keyframe 4: origen.
 	keyframePos = Vector3(0, 0, 0);
@@ -96,7 +96,7 @@ sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 	animationState = node->getCreator()->createAnimationState("animSinbad");
 	animationState->setLoop(true);
 	animationState->setEnabled(true);
-	dance->setEnabled(true);
+//	dance->setEnabled(true);
 
 }
 

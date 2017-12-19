@@ -125,7 +125,7 @@ void HolaApp::setupScene(void)
 
   // and tell it to render into the main window
   Viewport* vp = getRenderWindow()->addViewport(cam);
-  vp->setBackgroundColour(Ogre::ColourValue(1, 1, 1));
+  vp->setBackgroundColour(ColourValue::Black);
 
   // finally something to render
  /* Ogre::Entity* ent = scnMgr->createEntity("Sinbad.mesh");
