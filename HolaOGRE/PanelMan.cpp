@@ -5,7 +5,7 @@ using namespace Ogre;
 PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 {
 	//node->getCreator()->getSceneNode("Panel")->rotate(Vector3(1, 0, 0), Radian (3.14));
-	int var = -20;
+	int var = -5;
 	MeshPtr plane = MeshManager::getSingleton().createPlane("mFondo",
 		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		Plane(Vector3::UNIT_Y, var),

@@ -3,11 +3,12 @@
 using namespace Ogre;
 sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 {
-	float duracion = 20.0f;
+	float duracion = 10.0f;
 	ent = node->getCreator()->createEntity("nSinbad","Sinbad.mesh");
 		 ent->setQueryFlags(MY_QUERY_MASK);
 		 node->getCreator()->getSceneNode("nSinbad")->scale(Vector3(4.0, 4.0, 4.0));
 	setObjMan(ent);
+	
 	base = ent->getAnimationState("RunBase");
 
 
@@ -39,55 +40,54 @@ sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 
 
 	Real longitudPaso = duracion / 4.0;
-	Real tamDesplazamiento = 100.0;
+	Real tamDesplazamiento = 20;
 	keyframePos = Vector3(0, 0, 0);
+	Quaternion Rotacion = Quaternion(Radian(Degree(90)), Vector3(0, 1, 0));
 	 // 5 keyFrames: origen(0), arriba, origen, abajo, origen(4)
 	kf = track->createNodeKeyFrame(longitudPaso * 0); // Keyframe 0: origen.
 	kf->setTranslate(keyframePos); // Origen: Vector3
-	kf->setRotation(Quaternion(Radian(Degree(90)), Vector3(0, 1, 0)));
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
-
+	kf->setRotation(Rotacion);
 	
+	
+	kf = track->createNodeKeyFrame(longitudPaso * 1 -0.5); // Keyframe 1: arriba.
+	keyframePos = Vector3(tamDesplazamiento, 0, 0);
+	kf->setRotation(Quaternion(Radian(Degree(90)), Vector3(0, 1, 0)));
+	kf->setTranslate(keyframePos); // Arriba
 
+	Rotacion = Rotacion + Quaternion(Radian(Degree(90)), Vector3(0, 1, 0));
 	kf = track->createNodeKeyFrame(longitudPaso * 1); // Keyframe 1: arriba.
 	keyframePos = Vector3(tamDesplazamiento, 0, 0);
-	kf->setRotation(Quaternion(Radian(Degree(90)), Vector3(0, 1, 0)));
-	kf->setTranslate(keyframePos); // Arriba
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
-	kf = track->createNodeKeyFrame(longitudPaso * 1 +1); // Keyframe 1: arriba.
-	keyframePos = Vector3(tamDesplazamiento, 0, 0);
 	kf->setRotation(Quaternion(Radian(Degree(180)), Vector3(0, 1, 0)));
 	kf->setTranslate(keyframePos); // Arriba
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
 
-	kf = track->createNodeKeyFrame(longitudPaso * 2-1);
+	
+	kf = track->createNodeKeyFrame(longitudPaso * 2-0.5);
 	keyframePos = Vector3(tamDesplazamiento, 0, -tamDesplazamiento);
-	kf->setRotation(Quaternion(Radian(Degree(180)), Vector3(0, 1, 0)));
+	kf->setRotation(Rotacion);
 	kf->setTranslate(keyframePos); // Arriba
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
+
 	// Keyframe 2: origen. ….
+	Rotacion = Rotacion + Quaternion(Radian(Degree(90)), Vector3(0, 1, 0));
 	kf = track->createNodeKeyFrame(longitudPaso * 2); 
-	keyframePos = Vector3(tamDesplazamiento, 0, -tamDesplazamiento);
-	kf->setRotation(Quaternion(Radian(Degree(270)), Vector3(0, 1, 0)));
+	kf->setRotation(Rotacion);
 	kf->setTranslate(keyframePos); // Arriba
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
 
-	kf = track->createNodeKeyFrame(longitudPaso * 3-1); // Keyframe 3: abajo.
+
+	kf = track->createNodeKeyFrame(longitudPaso * 3-0.5); // Keyframe 3: abajo.
 	keyframePos = Vector3(0, 0, -tamDesplazamiento);
 	kf->setTranslate(keyframePos); // Abajo
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
 	kf->setRotation(Quaternion(Radian(Degree(270)), Vector3(0, 1, 0)));
 
+	Rotacion = Rotacion + Quaternion(Radian(Degree(90)), Vector3(0, 1, 0));
 	kf = track->createNodeKeyFrame(longitudPaso * 3); // Keyframe 3: abajo.
-	keyframePos = Vector3(0, 0, -tamDesplazamiento);
 	kf->setTranslate(keyframePos); // Abajo
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
+
 	kf->setRotation(Quaternion(Radian(Degree(360)), Vector3(0, 1, 0)));
 
-	kf = track->createNodeKeyFrame(longitudPaso * 4-1); // Keyframe 4: origen.
+	kf = track->createNodeKeyFrame(longitudPaso * 4-0.5); // Keyframe 4: origen.
 	keyframePos = Vector3(0, 0, 0);
 	kf->setTranslate(keyframePos); // Origen.
-	kf->setScale(Vector3(4.0, 4.0, 4.0));
+
 	kf->setRotation(Quaternion(Radian(Degree(360)), Vector3(0, 1, 0)));
 
 
