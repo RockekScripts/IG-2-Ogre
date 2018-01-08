@@ -20,6 +20,10 @@ class
 {
 public:
 	static const Ogre::uint32 MY_QUERY_MASK = 1; // << 0;
+	enum QueryFlags {
+		MY_QUERY_IGNORE = 1 << 1,
+		MY_QUERY_INTERACT = 1 << 0
+	};
 	ObjectMan(){};
 	
 		virtual bool mousePicking(const OgreBites::MouseButtonEvent& evt)
@@ -27,6 +31,7 @@ public:
 		return true;
 	};
 	virtual void frameRendered(const Ogre::FrameEvent &  evt) { };
+	virtual void interactua(Ogre::String nombre) {};
 	virtual void setObjMan(Ogre::MovableObject* mObj);
 	virtual ~ObjectMan();
 protected:

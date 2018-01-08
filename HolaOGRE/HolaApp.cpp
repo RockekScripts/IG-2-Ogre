@@ -1,8 +1,13 @@
 #include "HolaApp.h"
 #include "ObjectMan.h"
 #include "PanelMan.h"
+#include "BombMan.h"
+#include "KnotFly.h"
 using namespace Ogre;
-
+enum QueryFlags {
+	MY_QUERY_IGNORE = 1 << 1,
+	MY_QUERY_INTERACT = 1 << 0
+};
 void HolaApp::frameRendered(const FrameEvent &  evt)
 {
  // trayMgr->frameRendered(evt);
@@ -18,6 +23,14 @@ bool HolaApp::keyPressed(const OgreBites::KeyboardEvent& evt)
   {
     mRoot->queueEndRendering();
   }
+  else if (evt.keysym.sym == SDLK_t) {
+	  if(cameraMgr->getTarget() == scnMgr->getRootSceneNode())
+
+		  cameraMgr->setTarget(scnMgr->getSceneNode("nSinbad"));
+	  else
+	 
+	  cameraMgr->setTarget(scnMgr->getRootSceneNode());
+  }
  
  
   return true;
@@ -29,6 +42,23 @@ bool HolaApp::mousePressed(const OgreBites::MouseButtonEvent &  evt)
 		evt.x / (Real)scnMgr->getCamera("Cam")->getViewport()->getActualWidth(),
 		evt.y / (Real)scnMgr->getCamera("Cam")->getViewport()->getActualHeight()));
 	
+	rayScnQuery->setSortByDistance(true);
+	
+	rayScnQuery->setQueryMask(MY_QUERY_INTERACT);
+	
+	RaySceneQueryResult& qryResult = rayScnQuery->execute();
+	RaySceneQueryResult::iterator it = qryResult.begin();
+	
+	while (it != qryResult.end()) {
+		
+		for each (ObjectMan* var in vecObjMan)
+		{
+			var->interactua(it->movable->getName());
+		}
+		
+		++it;
+
+	}
 	return true;
 	}
 
@@ -95,6 +125,17 @@ void HolaApp::setupScene(void)
   lightNode->setPosition(0, 10, 0);
   lightNode->attachObject(light);
 
+  Light* spotLight = scnMgr->createLight("SpotLight");
+  spotLight->setDiffuseColour(0, 0, 1.0);
+  spotLight->setSpecularColour(0, 1.0, 0);
+  spotLight->setType(Light::LT_SPOTLIGHT);
+  spotLight->setDirection(Vector3::NEGATIVE_UNIT_Z);
+  SceneNode* spotLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+  spotLightNode->attachObject(spotLight);
+  spotLightNode->setDirection(-1, -1, 0);
+  spotLightNode->setPosition(Vector3(20, 20, 0));
+  spotLight->setSpotlightRange(Degree(60), Degree(100));
+  
   // also need to tell where we are
   camNode = scnMgr->getRootSceneNode()->createChildSceneNode("CamNode");
   camNode->setPosition(0, 0, 20);
@@ -121,14 +162,25 @@ void HolaApp::setupScene(void)
  
   rayScnQuery = scnMgr->createRayQuery(Ray());
   rayScnQuery->setSortByDistance(true);
+
   Ogre::SceneNode*  node = scnMgr->getRootSceneNode()->createChildSceneNode("nSinbad");
   sinbad * aux = new sinbad (node);
   vecObjMan.push_back(aux);
   addInputListener(aux);	
+
   Ogre::SceneNode* nodee = scnMgr->getRootSceneNode()->createChildSceneNode("Panel");
   PanelMan * panel = new PanelMan(nodee);
   vecObjMan.push_back(panel);
 
+  Ogre::SceneNode* nodeBomb = scnMgr->getRootSceneNode()->createChildSceneNode("Bomba");
+  BombMan * bomba = new BombMan(nodeBomb);
+  vecObjMan.push_back(bomba);
+
+  Ogre::SceneNode* nodeKnot = scnMgr->getRootSceneNode()->createChildSceneNode("Knot");
+  KnotFly * knot = new KnotFly(nodeKnot);
+  vecObjMan.push_back(knot);
+
+  rayScnQuery = scnMgr->createRayQuery(Ray(), MY_QUERY_INTERACT);
 }
 
 // LA MIERDA QUE COLIN QUIERE MANTENER

@@ -1,0 +1,54 @@
+
+material "Bomba"
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.75 0.75 0.75
+
+			texture_unit
+			{
+				texture BumpyMetal.jpg
+			}
+		}
+	}
+}
+
+material "Panel"
+{
+	technique // first, preferred technique
+		{ // características comunes a la técnica
+			pass // first pass
+				{
+					//ambient 0.5 0.5 0.5
+					diffuse 0.5 0.5 0.5
+					texture_unit // Texture unit 0
+						{ // tex_coord_set 0
+							texture RustedMetal.jpg
+							scroll_anim 0.1 0.0
+						}
+					texture_unit // Texture unit 1 (this is a multitexture pass)
+					{ // tex_coord_set 0
+						texture Water01.jpg
+						scroll_anim 0.0 0.3
+						scale 2 2
+						colour_op modulate
+					}
+				}
+		}
+}
+material "Knot"
+{
+	technique
+	{
+		pass
+		{
+
+			texture_unit
+			{
+				texture MtlPlat2.jpg
+			}
+		}
+	}
+}

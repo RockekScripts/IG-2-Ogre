@@ -14,9 +14,11 @@ PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 		10, 10, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
 	Entity* entPlano = node->getCreator()->createEntity("entFondo", "mFondo");
 
-	entPlano->getSubEntity(0)->getMaterial()->
+	/*entPlano->getSubEntity(0)->getMaterial()->
 		getTechnique(0)->getPass(0) ->
-		createTextureUnitState("RustedMetal.jpg");
+		createTextureUnitState("RustedMetal.jpg");*/
+	entPlano->getSubEntity(0)->setMaterialName("Panel");
+
 	Ogre::SceneNode* nodee = node->getCreator()->getRootSceneNode()->createChildSceneNode("nodoPlano");
 	node->attachObject(entPlano);
 
