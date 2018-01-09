@@ -10,8 +10,9 @@ sinbad::sinbad(SceneNode* scnMgr_) :ObjectMan(scnMgr_)
 	setObjMan(ent);
 	
 	base = ent->getAnimationState("RunBase");
-
-
+	espadas = ent->getAnimationState("DrawSwords");
+	espadas->setLoop(false);
+	espadas->setEnabled(false);
 	
 	base->setLoop(true);
 	base->setEnabled(true);
@@ -126,11 +127,16 @@ void sinbad::frameRendered(const Ogre::FrameEvent &  evt)
 	}
 	else if(estadoAct == atacando) {
 		if (!ataca->hasEnded()) {
+			espadas->setLoop(true);
+			espadas->setEnabled(true);
 			base->addTime(evt.timeSinceLastFrame);
 			top->addTime(evt.timeSinceLastFrame);
 			ataca->addTime(evt.timeSinceLastFrame);
+			espadas->addTime(evt.timeSinceLastFrame);
 		}
 		else {
+			espadas->setLoop(false);
+			espadas->setEnabled(false);
 			base->setEnabled(false);
 			top->setEnabled(false);
 			ataca->setEnabled(false);
@@ -176,17 +182,15 @@ void sinbad::interactua(const String name)
 		kf->setRotation(node->getOrientation());
 
 		kf = track->createNodeKeyFrame(duracion * 0.5);
-		Vector3 diferencia = node->getPosition() - node->getCreator()->getSceneNode("Bomba")->getPosition();
-		Real radio = sqrt((diferencia.x * diferencia.x) + (diferencia.z * diferencia.z));
-		//Real radio = sqrt(pow(diferencia.x, 2) + pow(diferencia.z, 2));
-		float grado = acos(node->getPosition().x / radio);
-		grado += 3.14159 / 2;
-		kf->setRotation(Quaternion(Radian(grado - node->getOrientation().y), Ogre::Vector3::UNIT_Y));
+		Vector3 posBomb = node->getPosition() - node->getCreator()->getSceneNode("Bomba")->getPosition();
+		
+		kf->setRotation(Vector3(0, 0, -1).getRotationTo({ posBomb.x, posBomb.y, posBomb.z }));
 		kf->setTranslate(node->getPosition()); // Origen: Vector3
 
 		kf = track->createNodeKeyFrame(duracion); // Keyframe 0: origen.
 		kf->setTranslate(Vector3(node->getCreator()->getSceneNode("Bomba")->getPosition().x,0, node->getCreator()->getSceneNode("Bomba")->getPosition().z)); // Origen: Vector3
-		kf->setRotation(Quaternion(Radian(grado), Ogre::Vector3::UNIT_Y));
+		kf->setRotation(Vector3(0, 0, -1).getRotationTo({ posBomb.x, posBomb.y, posBomb.z }));
+
 
 		ataca = node->getCreator()->createAnimationState("animAtack");
 		ataca->setLoop(false);

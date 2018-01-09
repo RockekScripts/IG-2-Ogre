@@ -24,6 +24,7 @@ private:
 	Ogre::AnimationState* handle;
 	Ogre::AnimationState* dance;
 	Ogre::AnimationState* ataca;
+	Ogre::AnimationState* espadas;
 
 	Ogre::MovableObject* espadaL;
 	Ogre::MovableObject* espadaR;
