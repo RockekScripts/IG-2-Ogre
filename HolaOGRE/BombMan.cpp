@@ -32,5 +32,7 @@ void BombMan::interactua(Ogre::String nombre)
 	if (nombre == "eBomba" && estadoAct != activa) {
 		estadoAct = activa;
 		pSystem->setEmitting(true);
+		ent->setQueryFlags(MY_QUERY_IGNORE);
+
 	}
 }

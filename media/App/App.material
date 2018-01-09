@@ -31,7 +31,7 @@ material "Panel"
 					texture_unit // Texture unit 1 (this is a multitexture pass)
 					{ // tex_coord_set 0
 						texture Water01.jpg
-						scroll_anim 0.0 0.3
+						scroll_anim 0.1 0.0
 						scale 2 2
 						colour_op modulate
 					}

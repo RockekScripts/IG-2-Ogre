@@ -44,7 +44,7 @@ bool HolaApp::mousePressed(const OgreBites::MouseButtonEvent &  evt)
 	
 	rayScnQuery->setSortByDistance(true);
 	
-	rayScnQuery->setQueryMask(MY_QUERY_INTERACT);
+//rayScnQuery->setQueryMask(MY_QUERY_INTERACT);
 	
 	RaySceneQueryResult& qryResult = rayScnQuery->execute();
 	RaySceneQueryResult::iterator it = qryResult.begin();
@@ -125,16 +125,15 @@ void HolaApp::setupScene(void)
   lightNode->setPosition(0, 10, 0);
   lightNode->attachObject(light);
 
-  Light* spotLight = scnMgr->createLight("SpotLight");
-  spotLight->setDiffuseColour(0, 0, 1.0);
-  spotLight->setSpecularColour(0, 1.0, 0);
-  spotLight->setType(Light::LT_SPOTLIGHT);
-  spotLight->setDirection(Vector3::NEGATIVE_UNIT_Z);
-  SceneNode* spotLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-  spotLightNode->attachObject(spotLight);
-  spotLightNode->setDirection(-1, -1, 0);
-  spotLightNode->setPosition(Vector3(20, 20, 0));
-  spotLight->setSpotlightRange(Degree(60), Degree(100));
+  Light* directionalLight = scnMgr->createLight("DirectionalLight");
+  directionalLight->setDiffuseColour(1.0, 1.0, 1.0);
+  directionalLight->setSpecularColour(1.0, 1.0, 1.0);
+  directionalLight->setType(Light::LT_DIRECTIONAL);
+  directionalLight->setDirection(Vector3::NEGATIVE_UNIT_Z);
+  SceneNode* directionalLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
+  directionalLightNode->attachObject(directionalLight);
+  directionalLightNode->setDirection(0, -1, 0);
+  directionalLightNode->setPosition(Vector3(20, 30, -20));
   
   // also need to tell where we are
   camNode = scnMgr->getRootSceneNode()->createChildSceneNode("CamNode");
@@ -176,7 +175,7 @@ void HolaApp::setupScene(void)
   BombMan * bomba = new BombMan(nodeBomb);
   vecObjMan.push_back(bomba);
 
-  Ogre::SceneNode* nodeKnot = scnMgr->getRootSceneNode()->createChildSceneNode("Knot");
+  Ogre::SceneNode* nodeKnot = node->createChildSceneNode("Knot");
   KnotFly * knot = new KnotFly(nodeKnot);
   vecObjMan.push_back(knot);
 

@@ -4,15 +4,18 @@ using namespace Ogre;
 
 PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 {
-	//node->getCreator()->getSceneNode("Panel")->rotate(Vector3(1, 0, 0), Radian (3.14));
+	
 	int var = -5;
 	MeshPtr plane = MeshManager::getSingleton().createPlane("mFondo",
 		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
 		Plane(Vector3::UNIT_Y, var),
-		(Real)node->getCreator()->getCamera("Cam")->getViewport()->getActualWidth(),
-		(Real)node->getCreator()->getCamera("Cam")->getViewport()->getActualHeight(),
+		100,100,
 		10, 10, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
 	Entity* entPlano = node->getCreator()->createEntity("entFondo", "mFondo");
+	/*
+	(Real)node->getCreator()->getCamera("Cam")->getViewport()->getActualWidth(),
+		(Real)node->getCreator()->getCamera("Cam")->getViewport()->getActualHeight()
+		*/
 
 	/*entPlano->getSubEntity(0)->getMaterial()->
 		getTechnique(0)->getPass(0) ->
@@ -21,7 +24,7 @@ PanelMan::PanelMan(SceneNode * scnNode) : ObjectMan(scnNode)
 
 	Ogre::SceneNode* nodee = node->getCreator()->getRootSceneNode()->createChildSceneNode("nodoPlano");
 	node->attachObject(entPlano);
-
+	node->setPosition(Vector3(20, 0, -20));
 	Camera* camRef = node->getCreator()->createCamera("RefCam");
 	camRef->setNearClipDistance(node->getCreator()->getCamera("Cam")->getNearClipDistance());
 	camRef->setFarClipDistance(node->getCreator()->getCamera("Cam") ->getFarClipDistance());

@@ -146,7 +146,7 @@ void sinbad::frameRendered(const Ogre::FrameEvent &  evt)
 		}
 	}
 	else if (estadoAct == muerto) {
-		node->translate(Vector3(0, 0, -0.05));
+		node->translate(Vector3(-0.1, 0, 0));
 	}
 	
 }
