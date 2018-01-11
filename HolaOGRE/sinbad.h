@@ -34,4 +34,4 @@ private:
 	Ogre::Vector3 keyframePos;
 	
 };
-
+	

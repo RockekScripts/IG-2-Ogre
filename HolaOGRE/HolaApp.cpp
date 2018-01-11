@@ -180,6 +180,7 @@ void HolaApp::setupScene(void)
   vecObjMan.push_back(knot);
 
   rayScnQuery = scnMgr->createRayQuery(Ray(), MY_QUERY_INTERACT);
+ scnMgr -> setSkyPlane (true, Plane(Vector3::UNIT_Z, -20), "Mandelbrot1", 1, 1, true, 0.0 , 100, 100);
 }
 
 // LA MIERDA QUE COLIN QUIERE MANTENER
