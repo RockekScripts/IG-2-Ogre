@@ -183,13 +183,16 @@ void sinbad::interactua(const String name)
 
 		kf = track->createNodeKeyFrame(duracion * 0.5);
 		Vector3 posBomb = node->getPosition() - node->getCreator()->getSceneNode("Bomba")->getPosition();
-		
-		kf->setRotation(Vector3(0, 0, -1).getRotationTo({ posBomb.x, posBomb.y, posBomb.z }));
+		Quaternion keku = Vector3(0, 0, -1).getRotationTo({ posBomb.x, posBomb.y, posBomb.z });
+		keku.x = 0;
+		kf->setRotation(keku);
 		kf->setTranslate(node->getPosition()); // Origen: Vector3
 
 		kf = track->createNodeKeyFrame(duracion); // Keyframe 0: origen.
 		kf->setTranslate(Vector3(node->getCreator()->getSceneNode("Bomba")->getPosition().x,0, node->getCreator()->getSceneNode("Bomba")->getPosition().z)); // Origen: Vector3
-		kf->setRotation(Vector3(0, 0, -1).getRotationTo({ posBomb.x, posBomb.y, posBomb.z }));
+		keku = Vector3(0, 0, -1).getRotationTo({ posBomb.x, posBomb.y, posBomb.z });
+		keku.x = 0;
+		kf->setRotation(keku);
 
 
 		ataca = node->getCreator()->createAnimationState("animAtack");
