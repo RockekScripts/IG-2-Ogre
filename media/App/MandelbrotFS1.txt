@@ -1,15 +1,18 @@
 #version 330 core
 in vec2 vUv0;
+in vec2 vUv1;
 uniform vec4 InColor;
 uniform vec4 OutColor1;
 uniform vec4 OutColor2;
+
 const int MaxIter = 500;
 out vec4 fFragColor;
-
+uniform sampler2D textura;
+uniform float tiempoE; 
 void main(){
 	float Creal = vUv0.s -1.5;
 	float Cimag = vUv0.t;
-	float real = Creal; //Zr
+	float real = Creal * abs(tan(tiempoE*0.01)); //Zr
 	float imag = Cimag; //Zi
 	float z2 = 0.0; //Z^2
 	int iter = 0;
@@ -19,10 +22,16 @@ void main(){
 		real = (tempreal * tempreal) - (imag * imag) + Creal;
 		imag = 2.0 * tempreal * imag + Cimag;
 		z2 = (real* real) + (imag*imag);
-		iter = iter + 1;
+		iter = iter + 8;
 	}
+	vec4 colorAux = OutColor2;
 	vec4 color = InColor;
+	vec4 colorTex = vec4(texture2D(textura,vUv1));
+	colorAux.r = colorAux.r + abs(cos(tiempoE));
+	colorAux.g = colorAux.g + abs(tan(tiempoE));
+	colorAux.b = colorAux.b + abs(sin(tiempoE));
 	if(z2 >4.0)
-		color = mix(OutColor1, OutColor2 , fract(float(iter)*0.04));
+		color = mix(OutColor1, colorAux , fract(float(iter)*0.04));
+	color *= colorTex;
 	fFragColor = color;
 }
